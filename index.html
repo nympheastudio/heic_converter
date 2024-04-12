@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>convert HEIC into JPG  with JAVASCRIPT</title>
+    <style>
+        #loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">Loading...</div>
+    <img id="resultImage" src="" style="max-width: 100%; display:none;">
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@latest"></script>
+    <script>
+        const l=document.getElementById('loader'),r=document.getElementById('resultImage'),p=new URLSearchParams(window.location.search).get('image');if(p){l.style.display='block';fetch(`https://appli.ovh/_heic/images/${p}.HEIC`).then(e=>e.blob()).then(e=>heic2any({blob:e,toType:"image/jpeg",quality:0.8})).then(e=>{const t=URL.createObjectURL(e);r.onload=()=>{l.style.display='none';r.style.display='block'};r.src=t}).catch(e=>{console.error(e);l.innerHTML='Erreur lors du chargement';l.style.display='block'})}else{console.log("Aucun numéro d'image spécifié dans l'URL.")}
+    </script>    
+</body>
+</html>
